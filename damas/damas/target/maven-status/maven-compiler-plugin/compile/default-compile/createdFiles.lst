@@ -1,0 +1,4 @@
+com\example\damas\DamasApplication.class
+com\example\damas\model\Piece.class
+com\example\damas\model\Board.class
+com\example\damas\controller\GameController.class

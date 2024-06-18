@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Jogo de Damas</title>
+    <style>
+        table {
+            border-collapse: collapse; /* Define que as bordas da tabela devem ser colapsadas */
+            margin: 20px auto; /* Define a margem da tabela: 20 pixels no topo/baixo e centralizada horizontalmente */
+        }
+        td {
+            width: 50px; /* Largura das células da tabela */
+            height: 50px; /* Altura das células da tabela */
+            text-align: center; /* Alinhamento do texto no centro horizontalmente */
+            vertical-align: middle; /* Alinhamento vertical do texto no centro */
+        }
+        .black {
+            background-color: black; /* Cor de fundo para células de peças pretas */
+            color: white; /* Cor do texto para células de peças pretas */
+        }
+        .white {
+            background-color: white; /* Cor de fundo para células de peças brancas */
+            color: black; /* Cor do texto para células de peças brancas */
+        }
+        .empty {
+            background-color: gray; /* Cor de fundo para células vazias (sem peças) */
+        }
+        .row-number {
+            width: 20px; /* Largura das células dos números de linha */
+            text-align: center; /* Alinhamento do texto no centro horizontalmente */
+        }
+        .col-number {
+            height: 20px; /* Altura das células dos números de coluna */
+            text-align: center; /* Alinhamento do texto no centro horizontalmente */
+            vertical-align: middle; /* Alinhamento vertical do texto no centro */
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Jogo de Damas</h1>
+    <h2 style="text-align: center;">Jogador Atual: <span th:text="${currentPlayer}"></span></h2>
+    <form method="post" action="/move" style="text-align: center;">
+        <input type="number" name="fromRow" placeholder="De Linha" min="0" max="7" required>
+        <input type="number" name="fromCol" placeholder="De Coluna" min="0" max="7" required>
+        <input type="number" name="toRow" placeholder="Para Linha" min="0" max="7" required>
+        <input type="number" name="toCol" placeholder="Para Coluna" min="0" max="7" required>
+        <button type="submit">Mover</button>
+    </form>
+    <table>
+        <tbody>
+            <tr>
+                <td></td>
+                <th class="col-number">0</th>
+                <th class="col-number">1</th>
+                <th class="col-number">2</th>
+                <th class="col-number">3</th>
+                <th class="col-number">4</th>
+                <th class="col-number">5</th>
+                <th class="col-number">6</th>
+                <th class="col-number">7</th>
+            </tr>
+            <tr th:each="row, rowStat : ${board}">
+                <th class="row-number" th:text="${rowStat.index}"></th>
+                <td th:each="col, colStat : ${row}"
+                    th:text="${col != null ? col : ''}"
+                    th:class="${col == null ? 'empty' : (col.color == 'b' ? 'black' : 'white')}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
